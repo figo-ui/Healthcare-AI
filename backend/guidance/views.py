@@ -66,6 +66,164 @@ import django_rq
 logger = logging.getLogger(__name__)
 GENERIC_CONDITION_RE = re.compile(r"^(condition\s+\d+|class_\d+)$", re.IGNORECASE)
 
+# ── Lightweight multilingual template strings for fallback responses ────
+_VT = {
+    # _build_contextual_acknowledgment
+    "empathy_feeling": {
+        "en": "I can hear that you're feeling {emotion}, and that's completely valid. ",
+        "am": "ስሜትዎ {emotion} መሆኑን ሰምቻለሁ፣ ይህ ሙሉ በሙሉ ትክክል ነው። ",
+        "om": "Dhugumaa {emotion} dhaga'amaa jira, kunis sirrii ta'aa jira. ",
+    },
+    "glad_helped": {
+        "en": "I'm glad I could help. ",
+        "am": "ሊረዳዎ ቻለሁ በጣም ደስ ይለኛል። ",
+        "om": "Si gargaaruu danda'eetti galatooma. ",
+    },
+    "thanks_confirming": {
+        "en": "Thanks for confirming. ",
+        "am": "ለማረጋገጥዎ እናመሰግናለን። ",
+        "om": "Mirkanaa'uu keeef galatooma. ",
+    },
+    "understood": {
+        "en": "Understood. ",
+        "am": "ተረድቷል። ",
+        "om": "Hubatameera. ",
+    },
+    "thanks_detail": {
+        "en": "Thanks for the additional detail. ",
+        "am": "ለተጨማሪ ዝርዝር እናመሰግናለን። ",
+        "om": "Dabalataa bal'inaaf galatooma. ",
+    },
+    # _build_follow_up_prompt
+    "take_care": {
+        "en": "Take care, and don't hesitate to come back if anything comes up.",
+        "am": "ጤና ይስጥዎ፣ ምንም ከተነሳ ይመለሱ።",
+        "om": "Nagaatti, yoo homtuu dhaga'ame hin yaaminatti deebi'i.",
+    },
+    "if_changes_questions": {
+        "en": "If anything changes or you have more questions, I'm right here.",
+        "am": "ምንም ከተቀየረ ወይም ተጨማሪ ጥያቄ ካለዎ እዚህ ነኝ።",
+        "om": "Yoo homtuu jijjiirame ykn gaaffii dabalataa qabaatte, ani asitti jira.",
+    },
+    "what_health_concern": {
+        "en": "What health concern can I help you with today?",
+        "am": "ዛሬ ምን የጤና ችግር ልረዳዎ እችላለሁ?",
+        "om": "Har'a rakoo fayyaa maalii si gargaaruu danda'a?",
+    },
+    "when_ready_describe": {
+        "en": "Whenever you're ready, describe your symptoms and I'll analyze them.",
+        "am": "ዝግጁ ሲሆኑ ምልክቶችዎን ይግለጹ እና እተነትናለሁ።",
+        "om": "Yeroo barbaadde mallattookee ibsi, ani xiinxala.",
+    },
+    "personalized_assessment_topic": {
+        "en": "If you'd like a personalized assessment about your {topic}, describe your symptoms in detail and I'll run a full analysis.",
+        "am": "ስለ {topic} የግል ግምገማ ከፈለጉ ምልክቶችዎን በዝርዝር ይግለጁ እና ሙሉ ትንተና አካሂዳለሁ።",
+        "om": "Yoo qorannoo dhuunfaa {topic} keessanii barbaaddan, mallattookee bal'ina ibsaa, ani qorannoo guddaa hojjecha.",
+    },
+    "personalized_assessment": {
+        "en": "If you'd like a personalized assessment based on your specific situation, describe your symptoms in detail and I'll run a full analysis.",
+        "am": "በእርስዎ ሁኔታ ላይ የተመሠረተ ግምገማ ከፈለጉ ምልክቶችዎን በዝርዝር ይግለጁ እና ሙሉ ትንተና አካሂዳለሁ።",
+        "om": "Yoo qorannoo haala keessanii irratti hundaa'e barbaaddan, mallattookee bal'ina ibsaa, ani qorannoo guddaa hojjecha.",
+    },
+    "tell_more_topic": {
+        "en": "Could you tell me more about your {topic} — when did it start, how severe is it, and does anything make it better or worse?",
+        "am": "ስለ {topic} ተጨማሪ ይንገሩኝ — መቼ ጀመረ፣ ምን ያህል አስቸኳይ ነው፣ እና ምን ያሻማል ወይም ያባሳል?",
+        "om": "{topic} keessanii irratti dabalatau natti ibsaa — yoom eegale, akkamii cimaa ta'e, fi homtuu ni fayyadaa moo hin fayyadamuu?",
+    },
+    "tell_more": {
+        "en": "Could you tell me more — when did it start, how severe is it, and does anything make it better or worse?",
+        "am": "ተጨማሪ ይንገሩኝ — መቼ ጀመረ፣ ምን ያህል አስቸኳይ ነው፣ እና ምን ያሻማል ወይም ያባሳል?",
+        "om": "Dabalatau natti ibsaa — yoom eegale, akkamii cimaa ta'e, fi homtuu ni fayyadaa moo hin fayyadamuu?",
+    },
+    "describe_full_topic": {
+        "en": "Could you describe the full picture about your {topic} — what you're feeling, when it started, and how severe it is on a scale of 1-10?",
+        "am": "ስለ {topic} ሙሉ ሁኔታውን ይግለጁ — ምን ያህል ይሰማዎታል፣ መቼ ጀመረ፣ እና ከ1-10 ምን ያህል አስቸኳይ ነው?",
+        "om": "{topic} keessanii haala guutuu ibsaa — maal dhaga'amaa, yoom eegale, fi sadarkaa 1-10 irratti akkamii cimaa ta'e?",
+    },
+    "describe_full": {
+        "en": "Could you describe the full picture — what you're feeling, when it started, and how severe it is on a scale of 1-10?",
+        "am": "ሙሉ ሁኔታውን ይግለጁ — ምን ያህል ይሰማዎታል፣ መቼ ጀመረ፣ እና ከ1-10 ምን ያህል አስቸኳይ ነው?",
+        "om": "Haala guutuu ibsaa — maal dhaga'amaa, yoom eegale, fi sadarkaa 1-10 irratti akkamii cimaa ta'e?",
+    },
+    "describe_experiencing_topic": {
+        "en": "Can you describe what you're experiencing with your {topic} in more detail?",
+        "am": "ስለ {topic} የሚያጋጥምዎትን በዝርዝር ይግለጁ?",
+        "om": "{topic} keessanii maal qabamtii bal'ina ibsaa?",
+    },
+    "describe_experiencing": {
+        "en": "Can you describe what you're experiencing in more detail?",
+        "am": "የሚያጋጥምዎትን በዝርዝር ይግለጁ?",
+        "om": "Maal qabamtii bal'ina ibsaa?",
+    },
+    "tell_more_emotional": {
+        "en": "Can you tell me more about what you're going through? Even a rough description helps.",
+        "am": "ስለ ምትለፍበት ተጨማሪ ይንገሩኝ? ጨርሶ ገላጭ እንኳ ይረዳል።",
+        "om": "Maal irraa darbe natti ibsaa? Ibsa gabaabaa akkasuma ni fayyada.",
+    },
+    "describe_symptoms": {
+        "en": "Describe any symptoms you're experiencing and I'll analyze them for you.",
+        "am": "የሚያጋጥምዎትን ምልክቶች ይግለጁ እና እተነትናለሁ።",
+        "om": "Mallattoo qabamtii ibsaa, ani siif xiinxala.",
+    },
+    # _build_conversational_reply fallback
+    "may_relate_to": {
+        "en": "Based on your description, this may relate to **{cond}** (confidence: {conf}). ",
+        "am": "ከግለጻዎ በኋላ ይህ **{cond}** ጋር ሊዛመድ ይችላል (እርግጠኛነት: {conf})። ",
+        "om": "Ibsa keessanii irratti hundaa'uun, kun **{cond}** waliin walqabatee danda'a (yaqii: {conf}). ",
+    },
+    "regarding_previous": {
+        "en": "Regarding our previous analysis — ",
+        "am": "ስለ ቀድሞው ትንተና — ",
+        "om": "Qorannoo darbe irratti — ",
+    },
+    "info_may_help": {
+        "en": "Here's some information that may help you understand what's going on:\n\n",
+        "am": "ምን እየሆነ እንዳይረዱ የሚረዳ መረጃ እዚህ አለ፦\n\n",
+        "om": "Odeeffannoo maal ta'ee jiru hubachuu dandeessan asitti jira:\n\n",
+    },
+    "health_info_relevant": {
+        "en": "Here's some health information that may be relevant:\n\n",
+        "am": "ሊመለከቱ የሚችሉ የጤና መረጃ እዚህ አለ፦\n\n",
+        "om": "Odeeffannoo fayyaa waliin qabatee danda'u asitti jira:\n\n",
+    },
+    # _build_informational_reply fallback
+    "topic_relates_to": {
+        "en": "This topic relates to **{cond}** (relevance: {conf}). ",
+        "am": "ይህ ርዕስ **{cond}** ጋር ይዛመዳል (ጠቀሜታ: {conf})። ",
+        "om": "Kun barreeffamni **{cond}** waliin walqabata (fayyaa: {conf}). ",
+    },
+    "building_on_earlier": {
+        "en": "Building on our earlier discussion — ",
+        "am": "በቀድሞው ውይይታችን ላይ መስረታት — ",
+        "om": "Haasawa darbe irratti hundaa'uun — ",
+    },
+    "no_info_topic": {
+        "en": "I don't have specific information about that {topic} topic in my knowledge base. If you're experiencing symptoms related to your {topic}, describe them in detail and I can run a full analysis.",
+        "am": "ስለ {topic} ርዕስ በእውቀት መጋቢዬ ውስጥ የተወሰነ መረጃ የለኝም። ስለ {topic} ምልክቶች ካጋጠሙዎ በዝርዝር ይግለጁ እና ሙሉ ትንተና አካሂዳለሁ።",
+        "om": "Beekkamni {topic} irratti beekkamna keessaa hin jiru. Yoo mallattoo {topic} qabaattan, bal'ina ibsaa, ani qorannoo guddaa hojjecha.",
+    },
+    "no_info_general": {
+        "en": "I don't have specific information about that in my knowledge base. If you're experiencing symptoms, describe them and I'll analyze them for you.",
+        "am": "በእውቀት መጋቢዬ ውስጥ ስለዚህ የተወሰነ መረጃ የለኝም። ምልክቶች ካጋጠሙዎ ይግለጁ እና እተነትናለሁ።",
+        "om": "Beekkamna keessaa odeeffannoo dhuunfaa hin qabu. Yoo mallattoo qabaattan, ibsaa, ani siif xiinxala.",
+    },
+    "disclaimer": {
+        "en": "*This is informational health guidance only — not a medical diagnosis. Consult a qualified healthcare professional for medical advice.*",
+        "am": "*ይህ የጤና መረጃዊ መመሪያ ብቻ ነው — የሕክምና ምርመራ አይደለም። ለሕክምና ምክር ብቁ የጤና ባለሙያ ያማክሩ።*",
+        "om": "*Kun gorsa odeeffannoo fayyaa qofa — qorannoo fayyaa miti. Gorsa fayyaaaf ogeessa fayyaa gaafadhu.*",
+    },
+}
+
+
+def _vt(key: str, language: str = "en", **kwargs) -> str:
+    """Translate a template string — falls back to English, then raw key."""
+    entry = _VT.get(key, {})
+    template = entry.get(language) or entry.get("en") or key
+    if kwargs:
+        for k, v in kwargs.items():
+            template = template.replace(f"{{{k}}}", str(v))
+    return template
+
 
 def _tokens_for_user(user: User):
     refresh = RefreshToken.for_user(user)
@@ -663,19 +821,18 @@ def _extract_rag_knowledge(rag_hits: list, max_answer_len: int = 500) -> str:
     return "\n\n".join(parts)
 
 
-def _build_contextual_acknowledgment(text: str, intent: str, recent: list) -> str:
+def _build_contextual_acknowledgment(text: str, intent: str, recent: list, language: str = "en") -> str:
     """Build a brief, dynamic acknowledgment based on detected intent and context.
 
-    No hardcoded templates — derives from the actual text and conversation state.
+    Uses _vt() for multilingual support.
     """
     lower = (text or "").strip().lower()
     in_medical_context = _has_medical_context(recent)
 
     if intent == _Intent.EMOTIONAL:
-        # Reference the specific emotion word detected in the user's text
         emotion_match = _EMOTIONAL_KEYWORDS.search(text)
         emotion_word = emotion_match.group(0) if emotion_match else "that"
-        return f"I can hear that you're feeling {emotion_word}, and that's completely valid. "
+        return _vt("empathy_feeling", language, emotion=emotion_word)
 
     if intent == _Intent.GREETING:
         return ""
@@ -684,24 +841,24 @@ def _build_contextual_acknowledgment(text: str, intent: str, recent: list) -> st
         return ""
 
     if intent == _Intent.GRATITUDE:
-        return "I'm glad I could help. "
+        return _vt("glad_helped", language)
 
     if intent == _Intent.FAREWELL:
         return ""
 
     if intent == _Intent.FOLLOW_UP_YES:
         if in_medical_context:
-            return "Thanks for confirming. "
+            return _vt("thanks_confirming", language)
         return ""
 
     if intent == _Intent.FOLLOW_UP_NO:
         if in_medical_context:
-            return "Understood. "
+            return _vt("understood", language)
         return ""
 
     if intent == _Intent.FOLLOW_UP_DETAIL:
         if in_medical_context:
-            return "Thanks for the additional detail. "
+            return _vt("thanks_detail", language)
         return ""
 
     if intent == _Intent.AFFIRMATION:
@@ -711,11 +868,10 @@ def _build_contextual_acknowledgment(text: str, intent: str, recent: list) -> st
     return ""
 
 
-def _build_follow_up_prompt(text: str, intent: str, recent: list, rag_hits: list) -> str:
+def _build_follow_up_prompt(text: str, intent: str, recent: list, rag_hits: list, language: str = "en") -> str:
     """Generate a natural follow-up question based on context and RAG results.
 
-    Like a real doctor, asks targeted questions to gather more information.
-    Derives keywords from the user's actual text and RAG results.
+    Uses _vt() for multilingual support.
     """
     in_medical_context = _has_medical_context(recent)
     lower = (text or "").strip().lower()
@@ -730,61 +886,43 @@ def _build_follow_up_prompt(text: str, intent: str, recent: list, rag_hits: list
         topic = symptom_match.group(0)
 
     if intent == _Intent.FAREWELL:
-        return "Take care, and don't hesitate to come back if anything comes up."
+        return _vt("take_care", language)
 
     if intent == _Intent.GRATITUDE:
-        return "If anything changes or you have more questions, I'm right here."
+        return _vt("if_changes_questions", language)
 
     if intent == _Intent.IDENTITY:
-        return "What health concern can I help you with today?"
+        return _vt("what_health_concern", language)
 
     if intent == _Intent.AFFIRMATION:
-        return "Whenever you're ready, describe your symptoms and I'll analyze them."
+        return _vt("when_ready_describe", language)
 
     # If we have RAG knowledge, offer personalized analysis
     if rag_hits:
         best_q = (rag_hits[0].get("metadata") or {}).get("question", "").strip()
         if best_q and intent != _Intent.EMOTIONAL:
             if topic:
-                return (
-                    f"If you'd like a personalized assessment about your {topic}, "
-                    f"describe your symptoms in detail and I'll run a full analysis."
-                )
-            return (
-                "If you'd like a personalized assessment based on your specific situation, "
-                "describe your symptoms in detail and I'll run a full analysis."
-            )
+                return _vt("personalized_assessment_topic", language, topic=topic)
+            return _vt("personalized_assessment", language)
 
     if in_medical_context:
         if intent == _Intent.FOLLOW_UP_YES:
             if topic:
-                return (
-                    f"Could you tell me more about your {topic} — when did it start, "
-                    f"how severe is it, and does anything make it better or worse?"
-                )
-            return (
-                "Could you tell me more — when did it start, how severe is it, "
-                "and does anything make it better or worse?"
-            )
+                return _vt("tell_more_topic", language, topic=topic)
+            return _vt("tell_more", language)
         if intent == _Intent.FOLLOW_UP_DETAIL:
             if topic:
-                return (
-                    f"Could you describe the full picture about your {topic} — "
-                    f"what you're feeling, when it started, and how severe it is on a scale of 1-10?"
-                )
-            return (
-                "Could you describe the full picture — what you're feeling, "
-                "when it started, and how severe it is on a scale of 1-10?"
-            )
+                return _vt("describe_full_topic", language, topic=topic)
+            return _vt("describe_full", language)
         if topic:
-            return f"Can you describe what you're experiencing with your {topic} in more detail?"
-        return "Can you describe what you're experiencing in more detail?"
+            return _vt("describe_experiencing_topic", language, topic=topic)
+        return _vt("describe_experiencing", language)
 
     if intent == _Intent.EMOTIONAL:
-        return "Can you tell me more about what you're going through? Even a rough description helps."
+        return _vt("tell_more_emotional", language)
 
     # Default: prompt for symptoms
-    return "Describe any symptoms you're experiencing and I'll analyze them for you."
+    return _vt("describe_symptoms", language)
 
 
 def _quick_triage_prediction(text: str) -> dict:
@@ -867,7 +1005,7 @@ def _build_conversational_reply(
         except Exception:
             pass
 
-    # ── Step 3: Fallback — template-based composition ────────────────────
+    # ── Step 3: Fallback — template-based composition (multilingual) ────
     triage_hint = ""
     triage_meta = {}
     if intent in (_Intent.MEDICAL, _Intent.EMOTIONAL, _Intent.FOLLOW_UP_DETAIL,
@@ -876,13 +1014,13 @@ def _build_conversational_reply(
         if triage_meta.get("condition") and triage_meta.get("confidence", 0) >= 0.15:
             cond = triage_meta["condition"]
             conf = triage_meta["confidence"]
-            triage_hint = f"Based on your description, this may relate to **{cond}** (confidence: {conf:.0%}). "
+            triage_hint = _vt("may_relate_to", language, cond=cond, conf=f"{conf:.0%}")
 
     # ── Step 3: Build dynamic acknowledgment ──────────────────────────────
-    acknowledgment = _build_contextual_acknowledgment(text, intent, recent)
+    acknowledgment = _build_contextual_acknowledgment(text, intent, recent, language)
 
     # ── Step 4: Build dynamic follow-up prompt ────────────────────────────
-    follow_up = _build_follow_up_prompt(text, intent, recent, rag_hits)
+    follow_up = _build_follow_up_prompt(text, intent, recent, rag_hits, language)
 
     # ── Step 5: Compose response ──────────────────────────────────────────
     # For greetings with no prior context, introduce self
@@ -895,7 +1033,7 @@ def _build_conversational_reply(
         intro = _INTRO.get(language, _INTRO["en"])
         has_medical_in_text = bool(_SYMPTOM_KEYWORDS.search(text) or _BODY_REGION_KEYWORDS.search(text))
         if rag_knowledge and has_medical_in_text:
-            return f"{intro}{acknowledgment}Here's some health information that may be relevant:\n\n{rag_knowledge}\n\n{follow_up}"
+            return f"{intro}{acknowledgment}{_vt('health_info_relevant', language)}{rag_knowledge}\n\n{follow_up}"
         return f"{intro}{follow_up}"
 
     # For identity questions, describe capabilities dynamically
@@ -927,7 +1065,7 @@ def _build_conversational_reply(
         prior_summary = _extract_prior_analysis_summary(recent)
         parts = [acknowledgment]
         if prior_summary:
-            parts.append(f"Regarding our previous analysis — {prior_summary}")
+            parts.append(f"{_vt('regarding_previous', language)}{prior_summary}")
         if rag_knowledge:
             parts.append(rag_knowledge)
         elif triage_hint:
@@ -939,10 +1077,7 @@ def _build_conversational_reply(
     if intent == _Intent.EMOTIONAL:
         parts = [acknowledgment]
         if rag_knowledge:
-            parts.append(
-                "Here's some information that may help you understand what's going on:\n\n"
-                + rag_knowledge
-            )
+            parts.append(_vt('info_may_help', language) + rag_knowledge)
         elif triage_hint:
             parts.append(triage_hint)
         parts.append(follow_up)
