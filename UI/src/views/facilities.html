@@ -1,0 +1,26 @@
+<div class="map-view-full glass-panel fade-in dot-pattern-bg">
+    <div class="map-sidebar">
+        <div class="search-filters">
+            <div class="search-input-wrapper">
+                <i data-lucide="search"></i>
+                <input type="text" data-i18n-placeholder="search_clinics" placeholder="Search clinics, hospitals...">
+            </div>
+            <div class="filter-chips">
+                <span class="chip active" data-i18n="all">All</span>
+                <span class="chip" data-i18n="nav_emergency">Emergency</span>
+                <span class="chip" data-i18n="chip_dental">Dental</span>
+                <span class="chip" data-i18n="chip_pharmacy">Pharmacy</span>
+                <span class="chip" data-i18n="chip_pediatric">Pediatric</span>
+            </div>
+        </div>
+        <div class="clinic-list" id="clinic-list">
+            <p style="padding:12px;color:var(--text-muted);font-size:0.85rem;" data-i18n="detecting_location">Detecting your location to find nearby facilities...</p>
+        </div>
+    </div>
+    <div class="map-canvas">
+        <div id="facility-map" style="width:100%;height:100%;border-radius:var(--radius-lg);"></div>
+        <button class="map-locate-btn" id="map-locate-btn" title="My Location">
+            <i data-lucide="locate" style="width:18px;height:18px;"></i>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+{
+  "class_names": [
+    "actinic keratoses and intraepithelial carcinoma",
+    "basal cell carcinoma",
+    "benign keratosis-like lesions",
+    "dermatofibroma",
+    "melanoma",
+    "melanocytic nevi",
+    "vascular lesions"
+  ],
+  "num_classes": 7,
+  "train_samples": 7007,
+  "val_samples": 1003,
+  "test_samples": 2005,
+  "image_size": 64,
+  "channels": 3,
+  "class_weights": [
+    4.390350877192983,
+    2.788300835654596,
+    1.3016905071521456,
+    12.5125,
+    1.2849807445442876,
+    0.21329639889196675,
+    10.11111111111111
+  ],
+  "normalization": {
+    "mean": [
+      0.5845583081245422,
+      0.5831430554389954,
+      0.5845583081245422
+    ],
+    "std": [
+      0.21778087317943573,
+      0.1574501097202301,
+      0.16998562216758728
+    ]
+  },
+  "class_distribution": {
+    "train": {
+      "actinic keratoses and intraepithelial carcinoma": 228,
+      "basal cell carcinoma": 359,
+      "benign keratosis-like lesions": 769,
+      "dermatofibroma": 80,
+      "melanoma": 779,
+      "melanocytic nevi": 4693,
+      "vascular lesions": 99
+    },
+    "val": {
+      "actinic keratoses and intraepithelial carcinoma": 33,
+      "basal cell carcinoma": 52,
+      "benign keratosis-like lesions": 110,
+      "dermatofibroma": 12,
+      "melanoma": 111,
+      "melanocytic nevi": 671,
+      "vascular lesions": 14
+    },
+    "test": {
+      "actinic keratoses and intraepithelial carcinoma": 66,
+      "basal cell carcinoma": 103,
+      "benign keratosis-like lesions": 220,
+      "dermatofibroma": 23,
+      "melanoma": 223,
+      "melanocytic nevi": 1341,
+      "vascular lesions": 29
+    }
+  }
+}

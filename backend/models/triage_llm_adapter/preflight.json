@@ -1,0 +1,11 @@
+{
+  "python": "3.10.11",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "base_model": "meta/Llama-4-Maverick-17B-128E-Instruct-FP8",
+  "inference_endpoint": "https://models.github.ai/inference",
+  "inference_sdk": "azure-ai-inference",
+  "ram_gb": 7.88,
+  "cuda_available": false,
+  "cuda_device_count": 0,
+  "local_gpu_required": false
+}

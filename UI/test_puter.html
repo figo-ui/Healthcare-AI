@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puter.js Simplify Test</title>
+    <script src="https://js.puter.com/v2/"></script>
+    <style>
+        body { font-family: Inter, sans-serif; max-width: 700px; margin: 40px auto; padding: 20px; background: #0f0f1a; color: #e0e0e0; }
+        h1 { color: #6366f1; }
+        .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; margin: 16px 0; }
+        .label { font-size: 0.8rem; color: #888; margin-bottom: 4px; }
+        .original { color: #f59e0b; }
+        .simplified { color: #10b981; }
+        button { background: #6366f1; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .status { font-size: 0.85rem; color: #888; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <h1>Puter.js Simplify Test</h1>
+    <p>Testing if Puter.js can simplify medical text into grade-4-friendly English.</p>
+
+    <div class="card">
+        <div class="label">Test 1: Backend response (clinical jargon)</div>
+        <div class="original" id="test1-original">Based on your description, this may relate to **Acute Coronary Syndrome** (confidence: 29%). The overall risk level is **moderate** (score 0.42). ⚠️ Important warning signs to watch: possible cardiac emergency pattern. **What to do next:** Possible cardiac emergency pattern: seek emergency care immediately. This is informational guidance only — not a medical diagnosis.</div>
+        <button id="btn1" onclick="simplifyTest('test1')">Simplify</button>
+        <div class="simplified" id="test1-simplified"></div>
+        <div class="status" id="test1-status"></div>
+    </div>
+
+    <div class="card">
+        <div class="label">Test 2: Symptom analysis results</div>
+        <div class="original" id="test2-original">Conditions: Unstable Angina (29.0%), Bronchitis (18.5%), Pneumonia (12.3%)
+Recommendation: Possible cardiac emergency pattern: seek emergency care immediately.
+Red flags: possible cardiac emergency pattern
+Prevention: Monitor symptoms closely, Avoid strenuous activity, Seek immediate care if chest pain worsens</div>
+        <button id="btn2" onclick="simplifyTest('test2')">Simplify</button>
+        <div class="simplified" id="test2-simplified"></div>
+        <div class="status" id="test2-status"></div>
+    </div>
+
+    <div class="card">
+        <div class="label">Test 3: RAG knowledge response</div>
+        <div class="original" id="test3-original">Having a pain in your chest can be scary. It does not always mean that you are having a heart attack. There can be many different causes for chest pain. Aortic dissection is a tear in the inner layer of the aorta. Pulmonary embolism is a blockage in one of the pulmonary arteries.</div>
+        <button id="btn3" onclick="simplifyTest('test3')">Simplify</button>
+        <div class="simplified" id="test3-simplified"></div>
+        <div class="status" id="test3-status"></div>
+    </div>
+
+    <div class="card">
+        <div class="label">Puter.js Status</div>
+        <div id="puter-status">Checking...</div>
+    </div>
+
+    <script>
+        // Check Puter availability
+        const statusEl = document.getElementById('puter-status');
+        if (typeof puter !== 'undefined' && puter.ai && puter.ai.chat) {
+            statusEl.innerHTML = '✅ Puter.js is loaded and ready. Model: gemini-3.1-flash-lite-preview';
+        } else {
+            statusEl.innerHTML = '❌ Puter.js not available. Check your internet connection.';
+        }
+
+        const SIMPLIFY_PROMPT = `You are a health communication expert. Rewrite the following medical text in very simple English that a 10-year-old could understand.
+
+Rules:
+- Use short sentences (max 12 words each)
+- Replace ALL medical jargon with everyday words:
+  - "myocardial infarction" → "heart attack"
+  - "hypertension" → "high blood pressure"
+  - "dyspnea" → "trouble breathing"
+  - "UTI" → "bladder infection"
+  - "cerebrovascular accident" → "stroke"
+  - "edema" → "swelling"
+  - "syncope" → "fainting"
+  - "diagnosis" → "what the doctor thinks is wrong"
+  - "prognosis" → "how you will likely get better"
+  - "contraindication" → "reason not to use something"
+- Keep all important warnings and red flags
+- Do NOT remove the disclaimer about not being a real doctor
+- Do NOT add new medical claims
+- Use "you" instead of "the patient"
+- If a risk level is mentioned, keep it clear (Low = not dangerous, Medium = see a doctor soon, High = get help now)
+
+Medical text to simplify:`;
+
+        async function simplifyTest(testId) {
+            const originalEl = document.getElementById(`${testId}-original`);
+            const simplifiedEl = document.getElementById(`${testId}-simplified`);
+            const statusEl = document.getElementById(`${testId}-status`);
+            const btn = document.getElementById(`btn${testId[testId.length-1]}`);
+
+            const text = originalEl.textContent;
+            btn.disabled = true;
+            btn.textContent = 'Simplifying...';
+            statusEl.textContent = 'Calling Puter.js AI...';
+
+            try {
+                const response = await puter.ai.chat(
+                    `${SIMPLIFY_PROMPT}\n\n${text}`,
+                    { model: 'gemini-3.1-flash-lite-preview' }
+                );
+
+                let simplified = '';
+                if (typeof response === 'string') {
+                    simplified = response.trim();
+                } else if (response?.message?.content) {
+                    simplified = response.message.content.trim();
+                } else {
+                    simplified = response.toString().trim();
+                }
+
+                simplifiedEl.textContent = simplified;
+                statusEl.textContent = '✅ Simplified successfully!';
+                btn.textContent = '✓ Done';
+            } catch (err) {
+                statusEl.textContent = '❌ Error: ' + (err.message || err);
+                btn.textContent = 'Retry';
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

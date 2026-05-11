@@ -1,0 +1,250 @@
+{
+  "allergies.csv": {
+    "rows": 5417,
+    "columns": [
+      "START",
+      "STOP",
+      "PATIENT",
+      "ENCOUNTER",
+      "CODE",
+      "DESCRIPTION"
+    ]
+  },
+  "careplans.csv": {
+    "rows": 37715,
+    "columns": [
+      "Id",
+      "START",
+      "STOP",
+      "PATIENT",
+      "ENCOUNTER",
+      "CODE",
+      "DESCRIPTION",
+      "REASONCODE",
+      "REASONDESCRIPTION"
+    ]
+  },
+  "conditions.csv": {
+    "rows": 114544,
+    "columns": [
+      "START",
+      "STOP",
+      "PATIENT",
+      "ENCOUNTER",
+      "CODE",
+      "DESCRIPTION"
+    ]
+  },
+  "devices.csv": {
+    "rows": 2360,
+    "columns": [
+      "START",
+      "STOP",
+      "PATIENT",
+      "ENCOUNTER",
+      "CODE",
+      "DESCRIPTION",
+      "UDI"
+    ]
+  },
+  "encounters.csv": {
+    "rows": 321528,
+    "columns": [
+      "Id",
+      "START",
+      "STOP",
+      "PATIENT",
+      "ORGANIZATION",
+      "PROVIDER",
+      "PAYER",
+      "ENCOUNTERCLASS",
+      "CODE",
+      "DESCRIPTION",
+      "BASE_ENCOUNTER_COST",
+      "TOTAL_CLAIM_COST",
+      "PAYER_COVERAGE",
+      "REASONCODE",
+      "REASONDESCRIPTION"
+    ]
+  },
+  "imaging_studies.csv": {
+    "rows": 4504,
+    "columns": [
+      "Id",
+      "DATE",
+      "PATIENT",
+      "ENCOUNTER",
+      "BODYSITE_CODE",
+      "BODYSITE_DESCRIPTION",
+      "MODALITY_CODE",
+      "MODALITY_DESCRIPTION",
+      "SOP_CODE",
+      "SOP_DESCRIPTION"
+    ]
+  },
+  "immunizations.csv": {
+    "rows": 16481,
+    "columns": [
+      "DATE",
+      "PATIENT",
+      "ENCOUNTER",
+      "CODE",
+      "DESCRIPTION",
+      "BASE_COST"
+    ]
+  },
+  "medications.csv": {
+    "rows": 431262,
+    "columns": [
+      "START",
+      "STOP",
+      "PATIENT",
+      "PAYER",
+      "ENCOUNTER",
+      "CODE",
+      "DESCRIPTION",
+      "BASE_COST",
+      "PAYER_COVERAGE",
+      "DISPENSES",
+      "TOTALCOST",
+      "REASONCODE",
+      "REASONDESCRIPTION"
+    ]
+  },
+  "observations.csv": {
+    "rows": 1659750,
+    "columns": [
+      "DATE",
+      "PATIENT",
+      "ENCOUNTER",
+      "CODE",
+      "DESCRIPTION",
+      "VALUE",
+      "UNITS",
+      "TYPE"
+    ]
+  },
+  "organizations.csv": {
+    "rows": 5499,
+    "columns": [
+      "Id",
+      "NAME",
+      "ADDRESS",
+      "CITY",
+      "STATE",
+      "ZIP",
+      "LAT",
+      "LON",
+      "PHONE",
+      "REVENUE",
+      "UTILIZATION"
+    ]
+  },
+  "patients.csv": {
+    "rows": 12352,
+    "columns": [
+      "Id",
+      "BIRTHDATE",
+      "DEATHDATE",
+      "SSN",
+      "DRIVERS",
+      "PASSPORT",
+      "PREFIX",
+      "FIRST",
+      "LAST",
+      "SUFFIX",
+      "MAIDEN",
+      "MARITAL",
+      "RACE",
+      "ETHNICITY",
+      "GENDER",
+      "BIRTHPLACE",
+      "ADDRESS",
+      "CITY",
+      "STATE",
+      "COUNTY",
+      "ZIP",
+      "LAT",
+      "LON",
+      "HEALTHCARE_EXPENSES",
+      "HEALTHCARE_COVERAGE"
+    ]
+  },
+  "payers.csv": {
+    "rows": 10,
+    "columns": [
+      "Id",
+      "NAME",
+      "ADDRESS",
+      "CITY",
+      "STATE_HEADQUARTERED",
+      "ZIP",
+      "PHONE",
+      "AMOUNT_COVERED",
+      "AMOUNT_UNCOVERED",
+      "REVENUE",
+      "COVERED_ENCOUNTERS",
+      "UNCOVERED_ENCOUNTERS",
+      "COVERED_MEDICATIONS",
+      "UNCOVERED_MEDICATIONS",
+      "COVERED_PROCEDURES",
+      "UNCOVERED_PROCEDURES",
+      "COVERED_IMMUNIZATIONS",
+      "UNCOVERED_IMMUNIZATIONS",
+      "UNIQUE_CUSTOMERS",
+      "QOLS_AVG",
+      "MEMBER_MONTHS"
+    ]
+  },
+  "payer_transitions.csv": {
+    "rows": 41392,
+    "columns": [
+      "PATIENT",
+      "START_YEAR",
+      "END_YEAR",
+      "PAYER",
+      "OWNERSHIP"
+    ]
+  },
+  "procedures.csv": {
+    "rows": 100427,
+    "columns": [
+      "DATE",
+      "PATIENT",
+      "ENCOUNTER",
+      "CODE",
+      "DESCRIPTION",
+      "BASE_COST",
+      "REASONCODE",
+      "REASONDESCRIPTION"
+    ]
+  },
+  "providers.csv": {
+    "rows": 31764,
+    "columns": [
+      "Id",
+      "ORGANIZATION",
+      "NAME",
+      "GENDER",
+      "SPECIALITY",
+      "ADDRESS",
+      "CITY",
+      "STATE",
+      "ZIP",
+      "LAT",
+      "LON",
+      "UTILIZATION"
+    ]
+  },
+  "supplies.csv": {
+    "rows": 143110,
+    "columns": [
+      "DATE",
+      "PATIENT",
+      "ENCOUNTER",
+      "CODE",
+      "DESCRIPTION",
+      "QUANTITY"
+    ]
+  }
+}

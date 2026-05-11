@@ -1,0 +1,60 @@
+<div class="chat-container glass-panel full-height fade-in dot-pattern-bg">
+    <!-- Conversation sidebar -->
+    <div class="chat-sidebar">
+        <div class="sidebar-header">
+            <h3 data-i18n="conversations">Conversations</h3>
+            <button class="new-chat-btn shimmer-btn" style="padding:0;width:32px;height:32px;"><i data-lucide="plus"></i></button>
+        </div>
+        <!-- Populated by chat.js from real API -->
+        <div class="chat-history" id="chat-history-list"></div>
+    </div>
+
+    <!-- Main chat area -->
+    <div class="chat-main">
+        <!-- Header -->
+        <div class="chat-header-main border-beam">
+            <div class="ai-profile">
+                <div class="ai-avatar-large glow-pulse">
+                    <i data-lucide="bot"></i>
+                    <div class="status-indicator online"></div>
+                </div>
+                <div class="ai-info-main">
+                    <h4 class="blur-fade-in" data-i18n="healthai_assistant">HealthAI Assistant</h4>
+                    <p data-i18n="medical_kb_online">Medical Knowledge Base • Online</p>
+                </div>
+            </div>
+            <div class="header-tools">
+                <button class="tool-btn" data-i18n-title="export_chat" title="Export Chat" id="export-chat-btn"><i data-lucide="download"></i></button>
+                <button class="tool-btn" data-i18n-title="new_chat" title="New Chat" id="new-chat-header-btn"><i data-lucide="plus-circle"></i></button>
+            </div>
+        </div>
+
+        <!-- Messages — scrollable, grows to fill space -->
+        <div class="chat-messages-wrap" id="chat-messages">
+            <!-- Empty state shown before any session is loaded -->
+            <div class="chat-empty-state" id="chat-empty-state">
+                <div class="empty-icon">
+                    <i data-lucide="message-square" style="width:40px;height:40px;color:var(--accent-color);opacity:0.5;"></i>
+                </div>
+                <h3 data-i18n="start_conversation">Start a conversation</h3>
+                <p data-i18n="describe_symptoms_ask">Describe your symptoms or ask a health question below.</p>
+                <div class="quick-replies" id="initial-quick-replies" style="justify-content:center;margin-top:16px;"></div>
+            </div>
+        </div>
+
+        <!-- Footer — always at bottom -->
+        <div class="chat-footer">
+            <div class="typing-indicator" id="typing-indicator" style="display: none;">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="input-wrapper-main">
+                <button class="attach-btn" id="attach-btn" title="Attach image"><i data-lucide="paperclip"></i></button>
+                <input type="file" id="image-input" accept="image/*" style="display:none;">
+                <textarea id="chat-input" data-i18n-placeholder="chat_placeholder" placeholder="Describe your symptoms or ask a health question..."></textarea>
+                <button id="send-btn" class="send-btn-main shiny-btn" style="padding:0;width:38px;height:38px;"><i data-lucide="send"></i></button>
+            </div>
+            <p id="chat-input-error" style="display:none;color:var(--danger-color);font-size:0.78rem;margin:4px 0 0 8px;"></p>
+            <p class="disclaimer" data-i18n="disclaimer">HealthAI provides informational guidance, not medical diagnosis. Always consult a healthcare professional for medical advice.</p>
+        </div>
+    </div>
+</div>

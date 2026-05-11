@@ -1,0 +1,462 @@
+{
+  "dialogue": {
+    "total_rows": 109142,
+    "train_rows": 81856,
+    "val_rows": 10914,
+    "test_rows": 16372,
+    "num_classes": 395,
+    "min_class_count": 2,
+    "max_class_count": 42135,
+    "top_10": {
+      "information": 42135,
+      "general": 23298,
+      "symptoms": 8356,
+      "treatment": 7832,
+      "causes": 4870,
+      "exams and tests": 4426,
+      "inheritance": 2715,
+      "genetic changes": 2522,
+      "frequency": 2279,
+      "susceptibility": 1265
+    }
+  },
+  "fitzpatrick": {
+    "total_rows": 3815,
+    "num_labels": 73,
+    "downloaded_count": 3815
+  },
+  "grok": {
+    "triage_supervised.csv": {
+      "rows": 160,
+      "columns": [
+        "symptom_text",
+        "condition",
+        "urgency",
+        "reasoning",
+        "source_dataset"
+      ]
+    },
+    "triage_dialogue_reasoning.csv": {
+      "rows": 300,
+      "columns": [
+        "user_text",
+        "assistant_text",
+        "source_dataset",
+        "intent"
+      ]
+    }
+  },
+  "imaging": {
+    "source": "dermamnist_28 + improved_dermcnn",
+    "train_samples": 7007,
+    "val_samples": 1003,
+    "test_samples": 2005,
+    "num_classes": 7
+  },
+  "kaggle_chatbot": {
+    "train.csv": {
+      "rows": 47603,
+      "columns": [
+        "question",
+        "answer",
+        "tags",
+        "label"
+      ]
+    },
+    "val.csv": {
+      "rows": 11901,
+      "columns": [
+        "question",
+        "answer",
+        "tags",
+        "label"
+      ]
+    }
+  },
+  "kaggle_symptom": {
+    "dataset.csv": {
+      "rows": 4920,
+      "columns": [
+        "Disease",
+        "Symptom_1",
+        "Symptom_2",
+        "Symptom_3",
+        "Symptom_4",
+        "Symptom_5",
+        "Symptom_6",
+        "Symptom_7",
+        "Symptom_8",
+        "Symptom_9",
+        "Symptom_10",
+        "Symptom_11",
+        "Symptom_12",
+        "Symptom_13",
+        "Symptom_14",
+        "Symptom_15",
+        "Symptom_16",
+        "Symptom_17"
+      ]
+    },
+    "Symptom-severity.csv": {
+      "rows": 133,
+      "columns": [
+        "Symptom",
+        "weight"
+      ]
+    },
+    "symptom_Description.csv": {
+      "rows": 41,
+      "columns": [
+        "Disease",
+        "Description"
+      ]
+    },
+    "symptom_precaution.csv": {
+      "rows": 41,
+      "columns": [
+        "Disease",
+        "Precaution_1",
+        "Precaution_2",
+        "Precaution_3",
+        "Precaution_4"
+      ]
+    },
+    "disease_symptom_processed.csv": {
+      "rows": 304,
+      "columns": [
+        "symptom_text",
+        "condition"
+      ]
+    }
+  },
+  "mimic": {
+    "total_rows": 232158,
+    "total_columns": 31,
+    "encounters_rows": 232158,
+    "encounters_columns": 10,
+    "conditions_rows": 232158,
+    "conditions_columns": 6,
+    "medications_rows": 232158,
+    "medications_columns": 7,
+    "observations_rows": 232158,
+    "observations_columns": 7,
+    "procedures_rows": 232158,
+    "procedures_columns": 7
+  },
+  "synthea": {
+    "allergies.csv": {
+      "rows": 5417,
+      "columns": [
+        "START",
+        "STOP",
+        "PATIENT",
+        "ENCOUNTER",
+        "CODE",
+        "DESCRIPTION"
+      ]
+    },
+    "careplans.csv": {
+      "rows": 37715,
+      "columns": [
+        "Id",
+        "START",
+        "STOP",
+        "PATIENT",
+        "ENCOUNTER",
+        "CODE",
+        "DESCRIPTION",
+        "REASONCODE",
+        "REASONDESCRIPTION"
+      ]
+    },
+    "conditions.csv": {
+      "rows": 114544,
+      "columns": [
+        "START",
+        "STOP",
+        "PATIENT",
+        "ENCOUNTER",
+        "CODE",
+        "DESCRIPTION"
+      ]
+    },
+    "devices.csv": {
+      "rows": 2360,
+      "columns": [
+        "START",
+        "STOP",
+        "PATIENT",
+        "ENCOUNTER",
+        "CODE",
+        "DESCRIPTION",
+        "UDI"
+      ]
+    },
+    "encounters.csv": {
+      "rows": 321528,
+      "columns": [
+        "Id",
+        "START",
+        "STOP",
+        "PATIENT",
+        "ORGANIZATION",
+        "PROVIDER",
+        "PAYER",
+        "ENCOUNTERCLASS",
+        "CODE",
+        "DESCRIPTION",
+        "BASE_ENCOUNTER_COST",
+        "TOTAL_CLAIM_COST",
+        "PAYER_COVERAGE",
+        "REASONCODE",
+        "REASONDESCRIPTION"
+      ]
+    },
+    "imaging_studies.csv": {
+      "rows": 4504,
+      "columns": [
+        "Id",
+        "DATE",
+        "PATIENT",
+        "ENCOUNTER",
+        "BODYSITE_CODE",
+        "BODYSITE_DESCRIPTION",
+        "MODALITY_CODE",
+        "MODALITY_DESCRIPTION",
+        "SOP_CODE",
+        "SOP_DESCRIPTION"
+      ]
+    },
+    "immunizations.csv": {
+      "rows": 16481,
+      "columns": [
+        "DATE",
+        "PATIENT",
+        "ENCOUNTER",
+        "CODE",
+        "DESCRIPTION",
+        "BASE_COST"
+      ]
+    },
+    "medications.csv": {
+      "rows": 431262,
+      "columns": [
+        "START",
+        "STOP",
+        "PATIENT",
+        "PAYER",
+        "ENCOUNTER",
+        "CODE",
+        "DESCRIPTION",
+        "BASE_COST",
+        "PAYER_COVERAGE",
+        "DISPENSES",
+        "TOTALCOST",
+        "REASONCODE",
+        "REASONDESCRIPTION"
+      ]
+    },
+    "observations.csv": {
+      "rows": 1659750,
+      "columns": [
+        "DATE",
+        "PATIENT",
+        "ENCOUNTER",
+        "CODE",
+        "DESCRIPTION",
+        "VALUE",
+        "UNITS",
+        "TYPE"
+      ]
+    },
+    "organizations.csv": {
+      "rows": 5499,
+      "columns": [
+        "Id",
+        "NAME",
+        "ADDRESS",
+        "CITY",
+        "STATE",
+        "ZIP",
+        "LAT",
+        "LON",
+        "PHONE",
+        "REVENUE",
+        "UTILIZATION"
+      ]
+    },
+    "patients.csv": {
+      "rows": 12352,
+      "columns": [
+        "Id",
+        "BIRTHDATE",
+        "DEATHDATE",
+        "SSN",
+        "DRIVERS",
+        "PASSPORT",
+        "PREFIX",
+        "FIRST",
+        "LAST",
+        "SUFFIX",
+        "MAIDEN",
+        "MARITAL",
+        "RACE",
+        "ETHNICITY",
+        "GENDER",
+        "BIRTHPLACE",
+        "ADDRESS",
+        "CITY",
+        "STATE",
+        "COUNTY",
+        "ZIP",
+        "LAT",
+        "LON",
+        "HEALTHCARE_EXPENSES",
+        "HEALTHCARE_COVERAGE"
+      ]
+    },
+    "payers.csv": {
+      "rows": 10,
+      "columns": [
+        "Id",
+        "NAME",
+        "ADDRESS",
+        "CITY",
+        "STATE_HEADQUARTERED",
+        "ZIP",
+        "PHONE",
+        "AMOUNT_COVERED",
+        "AMOUNT_UNCOVERED",
+        "REVENUE",
+        "COVERED_ENCOUNTERS",
+        "UNCOVERED_ENCOUNTERS",
+        "COVERED_MEDICATIONS",
+        "UNCOVERED_MEDICATIONS",
+        "COVERED_PROCEDURES",
+        "UNCOVERED_PROCEDURES",
+        "COVERED_IMMUNIZATIONS",
+        "UNCOVERED_IMMUNIZATIONS",
+        "UNIQUE_CUSTOMERS",
+        "QOLS_AVG",
+        "MEMBER_MONTHS"
+      ]
+    },
+    "payer_transitions.csv": {
+      "rows": 41392,
+      "columns": [
+        "PATIENT",
+        "START_YEAR",
+        "END_YEAR",
+        "PAYER",
+        "OWNERSHIP"
+      ]
+    },
+    "procedures.csv": {
+      "rows": 100427,
+      "columns": [
+        "DATE",
+        "PATIENT",
+        "ENCOUNTER",
+        "CODE",
+        "DESCRIPTION",
+        "BASE_COST",
+        "REASONCODE",
+        "REASONDESCRIPTION"
+      ]
+    },
+    "providers.csv": {
+      "rows": 31764,
+      "columns": [
+        "Id",
+        "ORGANIZATION",
+        "NAME",
+        "GENDER",
+        "SPECIALITY",
+        "ADDRESS",
+        "CITY",
+        "STATE",
+        "ZIP",
+        "LAT",
+        "LON",
+        "UTILIZATION"
+      ]
+    },
+    "supplies.csv": {
+      "rows": 143110,
+      "columns": [
+        "DATE",
+        "PATIENT",
+        "ENCOUNTER",
+        "CODE",
+        "DESCRIPTION",
+        "QUANTITY"
+      ]
+    }
+  },
+  "triage": {
+    "total_rows": 74631,
+    "train_rows": 55973,
+    "val_rows": 7463,
+    "test_rows": 11195,
+    "num_classes": 371,
+    "min_class_count": 2,
+    "max_class_count": 6507,
+    "top_10": {
+      "Covid-19": 6507,
+      "COVID-19": 6478,
+      "Anemia": 1935,
+      "Pericarditis": 1092,
+      "Myasthenia Gravis": 1066,
+      "Pneumonia": 1033,
+      "Urti": 1007,
+      "Viral Pharyngitis": 1003,
+      "Allergic Sinusitis": 1003,
+      "Viral pharyngitis": 1000
+    }
+  },
+  "uci": {
+    "heart_failure": {
+      "rows": 299,
+      "columns": [
+        "age",
+        "anaemia",
+        "creatinine_phosphokinase",
+        "diabetes",
+        "ejection_fraction",
+        "high_blood_pressure",
+        "platelets",
+        "serum_creatinine",
+        "serum_sodium",
+        "sex",
+        "smoking",
+        "time",
+        "DEATH_EVENT"
+      ],
+      "source_file": "heart_failure_clinical_records_dataset.csv"
+    }
+  },
+  "unified": {
+    "ULTIMATE_CONVERSATIONAL_QA.csv": {
+      "rows": 133985,
+      "columns": [
+        "question",
+        "answer"
+      ]
+    },
+    "ULTIMATE_IMAGING_LABELS.csv": {
+      "rows": 16577,
+      "columns": [
+        "image_id",
+        "condition",
+        "category"
+      ]
+    },
+    "ULTIMATE_TRIAGE_KNOWLEDGE.csv": {
+      "rows": 45780,
+      "columns": [
+        "symptom_text",
+        "condition"
+      ]
+    }
+  }
+}

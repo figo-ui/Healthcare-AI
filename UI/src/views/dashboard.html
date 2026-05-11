@@ -1,0 +1,140 @@
+<div class="fade-in bento-container animated-grid-bg particles-bg">
+    <!-- Ambient Particles -->
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div>
+
+    <!-- Welcome Tile -->
+    <div class="bento-tile welcome-tile glass-panel magic-card blur-fade-in">
+        <div class="tile-content">
+            <h2 id="welcome-greeting"><span class="sparkles-text" data-i18n="welcome">Welcome</span></h2>
+            <p id="welcome-subtitle" data-i18n="loading_health_overview">Loading your health overview...</p>
+        </div>
+        <div class="tile-icon pulse-soft"><i data-lucide="sun" id="greeting-icon"></i></div>
+    </div>
+
+    <!-- Total Consultations -->
+    <div class="bento-tile stat-tile glass-panel magic-card highlight-blue blur-fade-in stagger-1">
+        <div class="tile-header">
+            <i data-lucide="message-square"></i>
+            <span data-i18n="consultations">Consultations</span>
+        </div>
+        <div class="tile-body">
+            <p class="value" id="stat-consultations"><div class="skeleton" style="width:80px;height:30px;"></div></p>
+            <p class="trend" id="stat-consultations-sub" style="color:var(--text-muted);" data-i18n="total_sessions">Total sessions</p>
+        </div>
+    </div>
+
+    <!-- Last Risk Level -->
+    <div class="bento-tile stat-tile glass-panel magic-card highlight-green blur-fade-in stagger-2">
+        <div class="tile-header">
+            <i data-lucide="shield-check"></i>
+            <span data-i18n="last_risk">Last Risk</span>
+        </div>
+        <div class="tile-body">
+            <p class="value" id="stat-risk"><div class="skeleton" style="width:80px;height:30px;"></div></p>
+            <p class="trend" id="stat-risk-sub" style="color:var(--text-muted);" data-i18n="latest_analysis">Latest analysis</p>
+        </div>
+    </div>
+
+    <!-- Account Status -->
+    <div class="bento-tile stat-tile glass-panel magic-card highlight-purple blur-fade-in stagger-3">
+        <div class="tile-header">
+            <i data-lucide="user-check"></i>
+            <span data-i18n="account">Account</span>
+        </div>
+        <div class="tile-body">
+            <p class="value" id="stat-account"><div class="skeleton" style="width:80px;height:30px;"></div></p>
+            <p class="trend up" id="stat-account-sub" data-i18n="active">Active</p>
+        </div>
+    </div>
+
+    <!-- Activity Chart — consultation count over time -->
+    <div class="bento-tile chart-tile glass-panel magic-card blur-fade-in stagger-2">
+        <div class="tile-header">
+            <h3 data-i18n="consultation_activity">Consultation Activity</h3>
+            <div class="chart-period">
+                <span class="active" data-period="week" data-i18n="week">Week</span>
+                <span data-period="month" data-i18n="month">Month</span>
+                <span data-period="all" data-i18n="all">All</span>
+            </div>
+        </div>
+        <div class="svg-chart-container" id="activity-chart-container">
+            <div class="skeleton" style="width:100%;height:120px;border-radius:8px;"></div>
+        </div>
+        <div class="chart-labels" id="activity-chart-labels"></div>
+    </div>
+
+    <!-- Recent Sessions -->
+    <div class="bento-tile alerts-tile glass-panel magic-card blur-fade-in stagger-3">
+        <div class="tile-header">
+            <h3 data-i18n="recent_sessions">Recent Sessions</h3>
+            <span class="badge accent glow-pulse" id="sessions-badge" style="display:none">0</span>
+        </div>
+        <ul class="activity-list-pro" id="recent-sessions-list">
+            <li class="prio-low">
+                <div class="prio-indicator"></div>
+                <div class="prio-text">
+                    <div class="skeleton" style="width:140px;height:14px;margin-bottom:4px;"></div>
+                    <div class="skeleton" style="width:80px;height:10px;"></div>
+                </div>
+            </li>
+            <li class="prio-low">
+                <div class="prio-indicator"></div>
+                <div class="prio-text">
+                    <div class="skeleton" style="width:120px;height:14px;margin-bottom:4px;"></div>
+                    <div class="skeleton" style="width:60px;height:10px;"></div>
+                </div>
+            </li>
+        </ul>
+        <button class="shiny-btn" id="new-consultation-btn" style="margin-top:auto;">
+            <i data-lucide="plus" style="width:14px;height:14px;"></i> <span data-i18n="new_consultation">New Consultation</span>
+        </button>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bento-tile stat-tile glass-panel magic-card highlight-green blur-fade-in stagger-4">
+        <div class="tile-header">
+            <i data-lucide="zap"></i>
+            <span data-i18n="quick_actions">Quick Actions</span>
+        </div>
+        <div class="tile-body" style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+            <button class="quick-action-btn" data-page="symptoms">
+                <i data-lucide="shield-check" style="width:14px;height:14px;"></i> <span data-i18n="check_symptoms">Check Symptoms</span>
+            </button>
+            <button class="quick-action-btn" data-page="facilities">
+                <i data-lucide="map-pin" style="width:14px;height:14px;"></i> <span data-i18n="find_clinic">Find Clinic</span>
+            </button>
+            <button class="quick-action-btn" data-page="chat">
+                <i data-lucide="message-square" style="width:14px;height:14px;"></i> <span data-i18n="ask_ai">Ask AI</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Profile Summary -->
+    <div class="bento-tile stat-tile glass-panel magic-card blur-fade-in stagger-4">
+        <div class="tile-header">
+            <i data-lucide="user"></i>
+            <span data-i18n="profile">Profile</span>
+        </div>
+        <div class="tile-body" id="profile-summary">
+            <div class="skeleton" style="width:100px;height:14px;margin-bottom:6px;"></div>
+            <div class="skeleton" style="width:140px;height:12px;margin-bottom:4px;"></div>
+            <div class="skeleton" style="width:80px;height:12px;"></div>
+        </div>
+    </div>
+
+    <!-- System Status -->
+    <div class="bento-tile stat-tile glass-panel magic-card blur-fade-in stagger-5">
+        <div class="tile-header">
+            <i data-lucide="server"></i>
+            <span data-i18n="system">System</span>
+        </div>
+        <div class="tile-body" id="system-status">
+            <p class="value" style="font-size:1.2rem;" id="system-status-text">
+                <div class="skeleton" style="width:60px;height:24px;"></div>
+            </p>
+            <p class="trend" id="system-status-sub" style="color:var(--text-muted);" data-i18n="checking">Checking...</p>
+        </div>
+    </div>
+</div>

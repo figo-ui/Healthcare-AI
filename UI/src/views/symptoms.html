@@ -1,0 +1,46 @@
+<div class="symptom-analysis fade-in animated-grid-bg">
+    <div class="wizard-container glass-panel blur-fade-in">
+        <div class="wizard-steps">
+            <div class="step active glow-pulse" id="s-step-1">1</div>
+            <div class="line" id="s-line-1"></div>
+            <div class="step" id="s-step-2">2</div>
+            <div class="line" id="s-line-2"></div>
+            <div class="step" id="s-step-3">3</div>
+        </div>
+        
+        <div id="wizard-content">
+            <div id="phase-1" class="blur-fade-in">
+                <h2><span class="sparkles-text" data-i18n="describe">Describe</span> <span data-i18n="your_symptoms">Your Symptoms</span></h2>
+                <p style="color: var(--text-secondary); margin-bottom: var(--spacing-md);" data-i18n="ai_analyze_desc">Our AI model will analyze your description to assess potential health risks and provide recommendations.</p>
+                <textarea id="symptom-text" class="glass-input" style="height: 150px; resize: none;" data-i18n-placeholder="symptom_example" placeholder="Example: I have been experiencing sharp chest pains and shortness of breath for the last hour..."></textarea>
+                <!-- Image attachment area -->
+                <div id="symptom-attach-area" style="margin-top: var(--spacing-sm);">
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button type="button" class="secondary-btn" id="symptom-upload-btn" style="padding:6px 12px;font-size:0.8rem;display:flex;align-items:center;gap:4px;">
+                            <i data-lucide="paperclip" style="width:14px;height:14px;"></i> <span data-i18n="attach_file">Attach File</span>
+                        </button>
+                        <button type="button" class="secondary-btn" id="symptom-camera-btn" style="padding:6px 12px;font-size:0.8rem;display:flex;align-items:center;gap:4px;">
+                            <i data-lucide="camera" style="width:14px;height:14px;"></i> <span data-i18n="take_photo">Camera</span>
+                        </button>
+                        <input type="file" id="symptom-file-input" accept="image/*" style="display:none;">
+                        <input type="file" id="symptom-camera-input" accept="image/*" capture="environment" style="display:none;">
+                    </div>
+                    <div id="symptom-image-preview" style="display:none;margin-top:8px;position:relative;">
+                        <img id="symptom-preview-img" style="max-width:100%;max-height:180px;border-radius:var(--radius-sm);border:1px solid var(--border-color);" />
+                        <button type="button" id="symptom-remove-img" style="position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;">✕</button>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: var(--spacing-sm);">
+                    <span class="chip" data-symptom="Headache" data-i18n="symptom_headache">Headache</span>
+                    <span class="chip" data-symptom="Chest pain" data-i18n="symptom_chest_pain">Chest pain</span>
+                    <span class="chip" data-symptom="Fatigue" data-i18n="symptom_fatigue">Fatigue</span>
+                    <span class="chip" data-symptom="Dizziness" data-i18n="symptom_dizziness">Dizziness</span>
+                    <span class="chip" data-symptom="Nausea" data-i18n="symptom_nausea">Nausea</span>
+                </div>
+                <div class="wizard-actions">
+                    <button class="shiny-btn" id="symptom-next-btn"><i data-lucide="arrow-right" style="width:16px;height:16px;"></i> <span data-i18n="continue_analysis">Continue Analysis</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

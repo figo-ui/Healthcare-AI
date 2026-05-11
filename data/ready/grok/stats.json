@@ -1,0 +1,21 @@
+{
+  "triage_supervised.csv": {
+    "rows": 160,
+    "columns": [
+      "symptom_text",
+      "condition",
+      "urgency",
+      "reasoning",
+      "source_dataset"
+    ]
+  },
+  "triage_dialogue_reasoning.csv": {
+    "rows": 300,
+    "columns": [
+      "user_text",
+      "assistant_text",
+      "source_dataset",
+      "intent"
+    ]
+  }
+}

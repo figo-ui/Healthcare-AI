@@ -1,0 +1,11 @@
+{
+  "architecture": "tfidf_linearsvc_calibrated_isotonic",
+  "test_accuracy": 0.974,
+  "test_macro_f1": 0.9593,
+  "top3_accuracy": 0.9931,
+  "ece_calibrated": 0.021,
+  "training_time_sec": 5.7,
+  "label_consolidation": true,
+  "original_classes": 102,
+  "consolidated_classes": 102
+}

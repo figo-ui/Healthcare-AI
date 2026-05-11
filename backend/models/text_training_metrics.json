@@ -1,0 +1,9 @@
+{
+  "model_name": "LinearSVC_C0.5_calibrated_isotonic",
+  "test_macro_f1": 0.8306,
+  "test_accuracy": 0.8372,
+  "classes": 135,
+  "train_samples": 16660,
+  "test_samples": 4165,
+  "vectorizer_features": 7649
+}

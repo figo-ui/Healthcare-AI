@@ -1,0 +1,41 @@
+﻿{
+  "domain": "ux",
+  "query": "dashboard mobile premium",
+  "file": "ux-guidelines.csv",
+  "count": 3,
+  "results": [
+    {
+      "Category": "Forms",
+      "Issue": "Mobile Keyboards",
+      "Platform": "Mobile",
+      "Description": "Show appropriate keyboard for input type",
+      "Do": "Use inputmode attribute",
+      "Don't": "Default keyboard for all inputs",
+      "Code Example Good": "inputmode='numeric'",
+      "Code Example Bad": "Text keyboard for numbers",
+      "Severity": "Medium"
+    },
+    {
+      "Category": "Responsive",
+      "Issue": "Mobile First",
+      "Platform": "Web",
+      "Description": "Design for mobile then enhance for larger",
+      "Do": "Start with mobile styles then add breakpoints",
+      "Don't": "Desktop-first causing mobile issues",
+      "Code Example Good": "Default mobile + md: lg: xl:",
+      "Code Example Bad": "Desktop default + max-width queries",
+      "Severity": "Medium"
+    },
+    {
+      "Category": "Touch",
+      "Issue": "Pull to Refresh",
+      "Platform": "Mobile",
+      "Description": "Accidental refresh is frustrating",
+      "Do": "Disable where not needed",
+      "Don't": "Enable by default everywhere",
+      "Code Example Good": "overscroll-behavior: contain",
+      "Code Example Bad": "Default overscroll",
+      "Severity": "Low"
+    }
+  ]
+}

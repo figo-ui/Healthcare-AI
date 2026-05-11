@@ -1,0 +1,78 @@
+{
+  "dataset": "dermamnist_balanced",
+  "architecture": "hog_svc",
+  "training_strategy": "hog_color_histogram_svc_balanced",
+  "train_samples": 2287,
+  "val_samples": 1003,
+  "test_samples": 2005,
+  "classes": 7,
+  "image_size": 28,
+  "feature_dim": 1392,
+  "best_C": 0.01,
+  "train_macro_f1": 0.8824,
+  "best_val_macro_f1": 0.2468,
+  "test_macro_f1": 0.2587,
+  "test_accuracy": 0.5431,
+  "train_val_gap": 0.6356,
+  "baseline_test_f1": 0.449,
+  "baseline_test_acc": 0.5796,
+  "improvement_f1": -0.1903,
+  "improvement_acc": -0.0365,
+  "classification_report": {
+    "actinic keratoses and intraepithelial carcinoma": {
+      "precision": 0.23684210526315788,
+      "recall": 0.13636363636363635,
+      "f1-score": 0.17307692307692307,
+      "support": 66.0
+    },
+    "basal cell carcinoma": {
+      "precision": 0.22727272727272727,
+      "recall": 0.33980582524271846,
+      "f1-score": 0.2723735408560311,
+      "support": 103.0
+    },
+    "benign keratosis-like lesions": {
+      "precision": 0.23017902813299232,
+      "recall": 0.4090909090909091,
+      "f1-score": 0.2945990180032733,
+      "support": 220.0
+    },
+    "dermatofibroma": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 23.0
+    },
+    "melanoma": {
+      "precision": 0.24329896907216494,
+      "recall": 0.5291479820627802,
+      "f1-score": 0.3333333333333333,
+      "support": 223.0
+    },
+    "melanocytic nevi": {
+      "precision": 0.9019396551724138,
+      "recall": 0.6241610738255033,
+      "f1-score": 0.7377699427060379,
+      "support": 1341.0
+    },
+    "vascular lesions": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 29.0
+    },
+    "accuracy": 0.543142144638404,
+    "macro avg": {
+      "precision": 0.2627903549876366,
+      "recall": 0.2912242037979354,
+      "f1-score": 0.25873610828222837,
+      "support": 2005.0
+    },
+    "weighted avg": {
+      "precision": 0.6750308248054949,
+      "recall": 0.543142144638404,
+      "f1-score": 0.5825297566554106,
+      "support": 2005.0
+    }
+  }
+}

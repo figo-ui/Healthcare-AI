@@ -1,0 +1,20 @@
+{
+  "train.csv": {
+    "rows": 47603,
+    "columns": [
+      "question",
+      "answer",
+      "tags",
+      "label"
+    ]
+  },
+  "val.csv": {
+    "rows": 11901,
+    "columns": [
+      "question",
+      "answer",
+      "tags",
+      "label"
+    ]
+  }
+}

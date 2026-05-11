@@ -1,0 +1,21 @@
+{
+  "heart_failure": {
+    "rows": 299,
+    "columns": [
+      "age",
+      "anaemia",
+      "creatinine_phosphokinase",
+      "diabetes",
+      "ejection_fraction",
+      "high_blood_pressure",
+      "platelets",
+      "serum_creatinine",
+      "serum_sodium",
+      "sex",
+      "smoking",
+      "time",
+      "DEATH_EVENT"
+    ],
+    "source_file": "heart_failure_clinical_records_dataset.csv"
+  }
+}

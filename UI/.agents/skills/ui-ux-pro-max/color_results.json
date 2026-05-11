@@ -1,0 +1,41 @@
+﻿{
+  "domain": "color",
+  "query": "premium healthcare insurance dashboard",
+  "file": "colors.csv",
+  "count": 3,
+  "results": [
+    {
+      "Product Type": "Healthcare App",
+      "Keywords": "healthcare, app",
+      "Primary (Hex)": "#0891B2",
+      "Secondary (Hex)": "#22D3EE",
+      "CTA (Hex)": "#059669",
+      "Background (Hex)": "#ECFEFF",
+      "Text (Hex)": "#164E63",
+      "Border (Hex)": "#A5F3FC",
+      "Notes": "Calm blue + health green + trust"
+    },
+    {
+      "Product Type": "Insurance Platform",
+      "Keywords": "insurance, platform",
+      "Primary (Hex)": "#3B82F6",
+      "Secondary (Hex)": "#60A5FA",
+      "CTA (Hex)": "#F97316",
+      "Background (Hex)": "#F8FAFC",
+      "Text (Hex)": "#1E293B",
+      "Border (Hex)": "#E2E8F0",
+      "Notes": "Trust Blue (#0066CC) + Green (security) + Neutral"
+    },
+    {
+      "Product Type": "Luxury/Premium Brand",
+      "Keywords": "luxury, premium, brand",
+      "Primary (Hex)": "#1C1917",
+      "Secondary (Hex)": "#44403C",
+      "CTA (Hex)": "#CA8A04",
+      "Background (Hex)": "#FAFAF9",
+      "Text (Hex)": "#0C0A09",
+      "Border (Hex)": "#D6D3D1",
+      "Notes": "Black + Gold (#FFD700) + White + Minimal accent"
+    }
+  ]
+}

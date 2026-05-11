@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>HealthAI | Admin Panel</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+    <link rel="stylesheet" href="src/css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="admin-body">
+
+    <!-- Role Gate Overlay -->
+    <div class="role-gate" id="role-gate">
+        <div class="role-gate-card glass-panel blur-fade-in">
+            <div class="role-gate-icon"><i data-lucide="shield-check"></i></div>
+            <h2>Admin Access Required</h2>
+            <p>This panel is restricted to system administrators only.</p>
+            <form id="admin-login-form" onsubmit="event.preventDefault(); verifyAdmin()">
+                <div class="input-group">
+                    <label>Admin Email</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="mail"></i>
+                        <input type="email" id="admin-email" placeholder="admin@healthai.com" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Access Code</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="key"></i>
+                        <input type="password" id="admin-code" placeholder="Enter admin access code" required>
+                    </div>
+                </div>
+                <button type="submit" class="primary-btn" style="width:100%;margin-top:12px;">Authenticate</button>
+            </form>
+            <p class="role-gate-footer">
+                <a href="index.html">← Back to User Dashboard</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Admin Interface (hidden until authenticated) -->
+    <div class="admin-app" id="admin-app" style="display:none;">
+
+        <!-- Admin Sidebar -->
+        <nav class="admin-sidebar glass-panel" id="admin-sidebar">
+            <div class="admin-logo">
+                <i data-lucide="shield" class="logo-icon"></i>
+                <span><span class="sparkles-text">HealthAI</span> <small>Admin</small></span>
+            </div>
+            <div class="nav-section-label">Monitoring</div>
+            <ul class="nav-links">
+                <li class="active" data-section="overview"><i data-lucide="layout-dashboard"></i> <span>Overview</span></li>
+                <li data-section="alerts"><i data-lucide="alert-triangle"></i> <span>Health Alerts</span></li>
+                <li data-section="models"><i data-lucide="brain"></i> <span>AI Models</span></li>
+            </ul>
+            <div class="nav-section-label">Management</div>
+            <ul class="nav-links" style="flex-grow: 0;">
+                <li data-section="users"><i data-lucide="users"></i> <span>Users</span></li>
+                <li data-section="activity"><i data-lucide="bar-chart-3"></i> <span>Daily Activity</span></li>
+                <li data-section="questions"><i data-lucide="help-circle"></i> <span>Top Questions</span></li>
+                <li data-section="system"><i data-lucide="server"></i> <span>System Health</span></li>
+                <li data-section="audit"><i data-lucide="file-text"></i> <span>Audit Log</span></li>
+            </ul>
+            <div class="admin-profile">
+                <div class="avatar admin-avatar" id="admin-avatar-initials">SA</div>
+                <div class="user-info">
+                    <p class="name" id="admin-display-name">System Admin</p>
+                    <p class="role">Administrator</p>
+                </div>
+                <button class="logout-btn" id="admin-logout" title="Sign out" style="background:none;border:none;cursor:pointer;color:var(--text-muted);padding:6px;border-radius:8px;">
+                    <i data-lucide="log-out" style="width:18px;height:18px;"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Admin Main Content -->
+        <main class="admin-content" id="admin-content">
+            <header class="top-bar">
+                <h1 id="admin-page-title">System Overview</h1>
+                <div class="top-actions">
+                    <div class="search-box">
+                        <i data-lucide="search"></i>
+                        <input type="text" placeholder="Search users, alerts, logs...">
+                    </div>
+                    <div class="admin-badge glow-pulse"><i data-lucide="shield-check" style="width:14px;height:14px;"></i> Admin Mode</div>
+                </div>
+            </header>
+
+            <section id="admin-section-container">
+                <!-- Sections injected by admin.js -->
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="src/js/admin.js"></script>
+</body>
+</html>

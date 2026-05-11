@@ -1,0 +1,24 @@
+{
+  "ULTIMATE_CONVERSATIONAL_QA.csv": {
+    "rows": 133985,
+    "columns": [
+      "question",
+      "answer"
+    ]
+  },
+  "ULTIMATE_IMAGING_LABELS.csv": {
+    "rows": 16577,
+    "columns": [
+      "image_id",
+      "condition",
+      "category"
+    ]
+  },
+  "ULTIMATE_TRIAGE_KNOWLEDGE.csv": {
+    "rows": 45780,
+    "columns": [
+      "symptom_text",
+      "condition"
+    ]
+  }
+}

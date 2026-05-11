@@ -1,0 +1,14 @@
+{
+  "total_rows": 232158,
+  "total_columns": 31,
+  "encounters_rows": 232158,
+  "encounters_columns": 10,
+  "conditions_rows": 232158,
+  "conditions_columns": 6,
+  "medications_rows": 232158,
+  "medications_columns": 7,
+  "observations_rows": 232158,
+  "observations_columns": 7,
+  "procedures_rows": 232158,
+  "procedures_columns": 7
+}

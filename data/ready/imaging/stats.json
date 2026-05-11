@@ -1,0 +1,7 @@
+{
+  "source": "dermamnist_28 + improved_dermcnn",
+  "train_samples": 7007,
+  "val_samples": 1003,
+  "test_samples": 2005,
+  "num_classes": 7
+}

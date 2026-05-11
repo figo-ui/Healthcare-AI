@@ -1,0 +1,17 @@
+{
+  "backend": "sklearn_hog",
+  "architecture": "hog_svc",
+  "input_size": 28,
+  "classes": [
+    "actinic keratoses and intraepithelial carcinoma",
+    "basal cell carcinoma",
+    "benign keratosis-like lesions",
+    "dermatofibroma",
+    "melanoma",
+    "melanocytic nevi",
+    "vascular lesions"
+  ],
+  "normalization": {},
+  "num_classes": 7,
+  "dataset": "dermamnist_balanced"
+}

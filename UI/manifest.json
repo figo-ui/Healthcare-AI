@@ -1,0 +1,37 @@
+{
+  "name": "HealthAI — Intelligent Medical Assistant",
+  "short_name": "HealthAI",
+  "description": "AI-powered bilingual healthcare assistant with symptom analysis, risk scoring, and clinic finder.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0ea5e9",
+  "background_color": "#0a0e1a",
+  "lang": "en",
+  "categories": ["health", "medical", "utilities"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "AI Chat",
+      "short_name": "Chat",
+      "description": "Open the AI health assistant chat",
+      "url": "/?page=chat",
+      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Symptom Check",
+      "short_name": "Symptoms",
+      "description": "Run a symptom analysis",
+      "url": "/?page=symptoms",
+      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+    }
+  ]
+}

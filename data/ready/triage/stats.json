@@ -1,0 +1,21 @@
+{
+  "total_rows": 74631,
+  "train_rows": 55973,
+  "val_rows": 7463,
+  "test_rows": 11195,
+  "num_classes": 371,
+  "min_class_count": 2,
+  "max_class_count": 6507,
+  "top_10": {
+    "Covid-19": 6507,
+    "COVID-19": 6478,
+    "Anemia": 1935,
+    "Pericarditis": 1092,
+    "Myasthenia Gravis": 1066,
+    "Pneumonia": 1033,
+    "Urti": 1007,
+    "Viral Pharyngitis": 1003,
+    "Allergic Sinusitis": 1003,
+    "Viral pharyngitis": 1000
+  }
+}

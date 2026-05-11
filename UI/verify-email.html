@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>Verify Email | HealthAI</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+    <link rel="stylesheet" href="src/css/auth.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="auth.html" class="auth-logo">
+                    <i data-lucide="heart-pulse"></i>
+                    <span>HealthAI</span>
+                </a>
+                <h1>Verify Your Email</h1>
+                <p id="status-message" class="auth-subtitle">Verifying your email address...</p>
+            </div>
+            <div id="verify-result" class="verify-result" style="display:none;">
+                <div id="result-icon" style="font-size:48px;margin-bottom:16px;"></div>
+                <p id="result-text"></p>
+                <a href="auth.html" class="auth-btn primary" style="display:inline-block;margin-top:20px;text-align:center;">
+                    Go to Login
+                </a>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        import { apiVerifyEmail } from './src/js/api.js';
+
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+
+        const statusMsg = document.getElementById('status-message');
+        const resultDiv = document.getElementById('verify-result');
+        const resultIcon = document.getElementById('result-icon');
+        const resultText = document.getElementById('result-text');
+
+        if (!token) {
+            statusMsg.style.display = 'none';
+            resultDiv.style.display = 'block';
+            resultIcon.textContent = '⚠️';
+            resultText.textContent = 'No verification token found. Please check your email link.';
+        } else {
+            apiVerifyEmail(token)
+                .then(data => {
+                    statusMsg.style.display = 'none';
+                    resultDiv.style.display = 'block';
+                    if (data.status === 'verified') {
+                        resultIcon.textContent = '✅';
+                        resultText.textContent = 'Your email has been verified successfully!';
+                    } else if (data.status === 'already_verified') {
+                        resultIcon.textContent = 'ℹ️';
+                        resultText.textContent = 'This email was already verified.';
+                    } else {
+                        resultIcon.textContent = '✅';
+                        resultText.textContent = data.status || 'Verification complete.';
+                    }
+                })
+                .catch(err => {
+                    statusMsg.style.display = 'none';
+                    resultDiv.style.display = 'block';
+                    resultIcon.textContent = '❌';
+                    resultText.textContent = err.message || 'Verification failed. The link may be invalid or expired.';
+                });
+        }
+
+        lucide.createIcons();
+    </script>
+</body>
+</html>

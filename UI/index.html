@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0ea5e9">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>HealthAI | Intelligent Medical Assistant</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Leaflet Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Puter.js — free AI models for plain-language simplification -->
+    <script src="https://js.puter.com/v2/"></script>
+</head>
+<body class="animated-grid-bg particles-bg">
+    <!-- Magic UI: ambient particles -->
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div>
+
+    <!-- Mobile Sidebar Toggle -->
+    <button class="mobile-toggle" id="mobile-toggle">
+        <i data-lucide="menu"></i>
+    </button>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar glass-panel" id="sidebar">
+        <div class="logo">
+            <i data-lucide="activity" class="logo-icon"></i>
+            <span class="sparkles-text">HealthAI</span>
+        </div>
+        <div class="nav-section-label" data-i18n="nav_main">Main</div>
+        <ul class="nav-links">
+            <li class="active" data-page="dashboard"><i data-lucide="layout-dashboard"></i> <span data-i18n="nav_dashboard">Dashboard</span></li>
+            <li data-page="chat"><i data-lucide="message-square"></i> <span data-i18n="nav_chat">AI Assistant</span></li>
+            <li data-page="symptoms"><i data-lucide="shield-check"></i> <span data-i18n="nav_symptoms">Symptom Check</span></li>
+            <li data-page="facilities"><i data-lucide="map-pin"></i> <span data-i18n="nav_facilities">Clinic Finder</span></li>
+        </ul>
+        <div class="emergency-btn glow-pulse" id="emergency-btn">
+            <i data-lucide="alert-triangle"></i>
+            <span data-i18n="nav_emergency">Emergency</span>
+        </div>
+        <div class="user-profile">
+            <div class="user-avatar">U</div>
+            <div class="user-info">
+                <p class="user-name" data-i18n="loading">Loading...</p>
+                <p class="user-email"></p>
+            </div>
+            <button class="logout-btn" data-i18n-title="sign_out" title="Sign out" aria-label="Sign out">
+                <i data-lucide="log-out"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="content" id="main-content">
+        <header class="top-bar">
+            <h1 id="page-title" data-i18n="page_dashboard">Dashboard Overview</h1>
+            <div class="top-actions">
+                <div class="search-box">
+                    <i data-lucide="search"></i>
+                    <input type="text" data-i18n-placeholder="search_placeholder" placeholder="Search medical records...">
+                </div>
+                <!-- Language Switcher -->
+                <div class="lang-switcher" id="lang-switcher" data-i18n-title="change_language" title="Change language">
+                    <i data-lucide="languages" style="width:16px;height:16px;"></i>
+                    <span id="lang-label">EN</span>
+                </div>
+                <!-- Language Dropdown (outside switcher to avoid clipping) -->
+                <div class="lang-dropdown" id="lang-dropdown">
+                    <button class="lang-option lang-auto-detect" data-lang="auto">
+                        <span class="lang-flag">🌐</span> <span data-i18n="auto_detect">Auto-detect</span>
+                    </button>
+                    <div class="lang-dropdown-divider"></div>
+                    <button class="lang-option" data-lang="en">
+                        <span class="lang-flag">🇺🇸</span> English
+                    </button>
+                    <button class="lang-option" data-lang="am">
+                        <span class="lang-flag">🇪🇹</span> አማርኛ
+                    </button>
+                    <button class="lang-option" data-lang="om">
+                        <span class="lang-flag">🇪🇹</span> Afaan Oromoo
+                    </button>
+                </div>
+
+                <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark mode">
+                    <i data-lucide="sun" id="theme-icon"></i>
+                </button>
+                <div class="notifications" id="notifications-btn">
+                    <i data-lucide="bell"></i>
+                    <span class="badge" style="display:none">0</span>
+                    <div class="notification-dropdown" id="notification-dropdown">
+                        <div class="nd-header">
+                            <h4 data-i18n="notifications">Notifications</h4>
+                            <span style="font-size:0.75rem; color:var(--accent-color); cursor:pointer;" data-i18n="mark_all_read">Mark all read</span>
+                        </div>
+                        <div class="nd-empty" style="padding:20px; text-align:center; color:var(--text-muted); font-size:0.85rem;" data-i18n="no_notifications">No new notifications</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section id="view-container">
+            <!-- Dynamic Views -->
+        </section>
+    </main>
+
+    <!-- Leaflet Map -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="src/js/app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- ── Language Switcher — Ethiopian languages (en/am/om) + auto-detect + i18n ── -->
+    <script type="module">
+    import { setLang, applyToDOM, t } from './src/i18n/i18n.js';
+
+    var API_BASE = 'http://127.0.0.1:8000/api/v1';
+    var LABELS = { en: 'EN', am: 'አማ', om: 'OM' };
+
+    function getLang() {
+        return localStorage.getItem('healthai_language') || 'en';
+    }
+
+    function applyLang(lang) {
+        if (lang === 'auto') {
+            localStorage.setItem('healthai_language', 'auto');
+            var label = document.getElementById('lang-label');
+            if (label) label.textContent = '🌐';
+            document.querySelectorAll('.lang-option').forEach(function(b) {
+                b.classList.toggle('active', b.dataset.lang === 'auto');
+            });
+            var sw = document.getElementById('lang-switcher');
+            if (sw) { sw.style.borderColor = '#10b981'; setTimeout(function() { sw.style.borderColor = ''; }, 700); }
+            // Use English for UI when auto-detect is selected
+            setLang('en');
+            return;
+        }
+        localStorage.setItem('healthai_language', lang);
+        var label = document.getElementById('lang-label');
+        if (label) label.textContent = LABELS[lang] || 'EN';
+        document.querySelectorAll('.lang-option').forEach(function(b) {
+            b.classList.toggle('active', b.dataset.lang === lang);
+        });
+        var sw = document.getElementById('lang-switcher');
+        if (sw) { sw.style.borderColor = '#10b981'; setTimeout(function() { sw.style.borderColor = ''; }, 700); }
+        // Apply i18n translations to DOM
+        setLang(lang);
+        // Persist to backend
+        var token = localStorage.getItem('healthai_access_token');
+        if (token) {
+            fetch(API_BASE + '/profile/', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+                credentials: 'include',
+                body: JSON.stringify({ preferred_language: lang })
+            }).catch(function() {});
+        }
+    }
+
+    function initSwitcher() {
+        var switcher  = document.getElementById('lang-switcher');
+        var dropdown  = document.getElementById('lang-dropdown');
+        var label     = document.getElementById('lang-label');
+        if (!switcher || !dropdown || !label) return;
+
+        var saved = getLang();
+        label.textContent = saved === 'auto' ? '🌐' : (LABELS[saved] || 'EN');
+        document.querySelectorAll('.lang-option').forEach(function(b) {
+            b.classList.toggle('active', b.dataset.lang === saved);
+        });
+
+        // Apply initial translations
+        setLang(saved === 'auto' ? 'en' : saved);
+
+        function positionDropdown() {
+            var rect = switcher.getBoundingClientRect();
+            dropdown.style.top  = (rect.bottom + window.scrollY + 6) + 'px';
+            dropdown.style.left = (rect.right  + window.scrollX - dropdown.offsetWidth) + 'px';
+        }
+
+        switcher.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var isOpen = dropdown.classList.contains('show');
+            document.querySelectorAll('.lang-dropdown.show').forEach(function(d) { d.classList.remove('show'); });
+            if (!isOpen) { dropdown.classList.add('show'); positionDropdown(); }
+        });
+
+        document.querySelectorAll('.lang-option').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                applyLang(btn.dataset.lang);
+                dropdown.classList.remove('show');
+            });
+        });
+
+        document.addEventListener('click', function() { dropdown.classList.remove('show'); });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSwitcher);
+    } else {
+        initSwitcher();
+    }
+
+    // Expose i18n globally for other modules
+    window.__i18n = { t, setLang, applyToDOM };
+    </script>
+    <!-- Service Worker Registration — PWA offline support -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js').then(function(reg) {
+                console.log('[SW] Registered:', reg.scope);
+            }).catch(function(err) {
+                console.warn('[SW] Registration failed:', err);
+            });
+        });
+    }
+    </script>
+</body>
+</html>
